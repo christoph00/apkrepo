@@ -1,0 +1,32 @@
+# Contributor: Christoph Asche <christoph@asche.co>
+# Maintainer: Christoph Asche <christoph@asche.co>
+pkgname=homeassistant
+pkgver=2022.5.5
+pkgrel=0
+pkgdesc="Open source home automation that puts local control and privacy first."
+url="https://homeassistant.io"
+arch="all"
+license="Apache 2.0"
+depends="python3 sqlite-libs"
+depends_dev="python3 sqlite-libs py3-pip"
+makedepends="$depends_dev"
+install=
+source="https://github.com/home-assistant/core/archive/refs/tags/$pkgver.tar.gz"
+
+builddir="$srcdir"/$pkgname-$pkgver
+
+prepare() {
+	cd "$builddir"
+}
+
+build() {
+
+}
+
+package() {
+
+}
+
+check() {
+
+}
