@@ -7,20 +7,24 @@ pkgdesc="Open source home automation that puts local control and privacy first."
 url="https://homeassistant.io"
 arch="all"
 license="Apache 2.0"
-depends="python3 sqlite-libs"
-depends_dev="python3 sqlite-libs py3-pip"
+depends=
+depends_dev="python3 sqlite-libs"
 makedepends="$depends_dev"
 install=
 source="https://github.com/home-assistant/core/archive/refs/tags/$pkgver.tar.gz"
 
 builddir="$srcdir"/$pkgname-$pkgver
 
+wheels="https://wheels.home-assistant.io/alpine-3.14/${CARCH}"
+
 prepare() {
 	cd "$builddir"
+	python3 -m venv venv
+	
 }
 
 build() {
-
+	./venv/bin/pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${wheels}" -r requirements.txt --use-deprecated=legacy-resolver
 }
 
 package() {
