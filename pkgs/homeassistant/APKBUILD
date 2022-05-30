@@ -25,6 +25,9 @@ prepare() {
 
 build() {
 	./venv/bin/pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${wheels}" -r requirements.txt --use-deprecated=legacy-resolver
+	./venv/bin/pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${wheels}" -r requirements_all.txt --use-deprecated=legacy-resolver
+	./venv/bin/pip3 install --no-cache-dir --no-index --only-binary=:all: --find-links "${wheels}" -e . --use-deprecated=legacy-resolver
+	./venv/bin/python3 -m compileall homeassistant
 }
 
 package() {
