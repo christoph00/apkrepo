@@ -1,0 +1,46 @@
+name: Build Packages
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Build on Alpine ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch:
+          - x86_64
+          - aarch64
+          - armv7
+        pkg:
+          - ardguardhome
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0  # fetch all history
+
+      - name: Install Alpine Linux Edge for ${{ matrix.arch }}
+        uses: jirutka/setup-alpine@v1
+        with:
+          arch: ${{ matrix.arch }}
+          branch: edge
+          packages: base-dev
+
+      - name: Get version
+        run: |
+          GIT_TAG=$(git describe --tags --match 'v*' 2>/dev/null || echo ${GITHUB_REF##*/})
+          echo "VERSION=${GIT_TAG#v}" >> $GITHUB_ENV
+
+      - name: Build plugin
+        run: |
+          cd ${PKG}
+          abuild
+        shell: alpine.sh {0}
+
+      - name: Upload pkg to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: build/*.tar.xz
+          if-no-files-found: error
