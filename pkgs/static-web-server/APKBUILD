@@ -1,0 +1,47 @@
+# Contributor:
+# Maintainer:
+pkgname=static-web-server
+pkgver=2.9.0
+pkgrel=0
+pkgdesc="A blazing fast and asynchronous web server for static files-serving."
+url="https://sws.joseluisq.net"
+arch="aarch64 armhf armv7 x86 x86_64"
+license="mit"
+depends=""
+makedepends="cargo"
+checkdepends=""
+install=""
+#subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/joseluisq/static-web-server/archive/refs/tags/v${pkgver}.tar.gz"
+#builddir="$srcdir/"
+options="!check"
+
+export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+export CARGO_PROFILE_RELEASE_LTO="true"
+export CARGO_PROFILE_RELEASE_OPT_LEVEL="s"
+export CARGO_PROFILE_RELEASE_PANIC="abort"
+
+
+prepare() {
+	default_prepare
+
+	cargo fetch --locked
+}
+
+build() {
+	cargo build --release --frozen
+}
+
+check() {
+	cargo test --release --locked
+}
+
+package() {
+
+	cargo install --offline --path . --root="$pkgdir/usr"
+	rm "$pkgdir"/usr/.crates*
+}
+
+sha512sums="
+8647279605f0306025df9ec428abd33ae0b50bcd490a6946512ae18898fc63fb0ea1dac29fc896922f5cc905f2742a598b58161f6a0fbf2928cb005d936b511d  static-web-server-2.9.0.tar.gz
+"
