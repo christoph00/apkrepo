@@ -30,8 +30,8 @@ jobs:
             alpine-sdk
 
 
-      - name: Build ${matrix.pkg}
+      - name: Build ${{ matrix.pkg }}
         run: |
-          cd pkgs/${matrix.pkg}
+          cd pkgs/${{ matrix.pkg }}
           abuild -r
         shell: alpine.sh {0}
