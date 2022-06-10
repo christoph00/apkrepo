@@ -27,9 +27,6 @@ jobs:
           branch: edge
           packages: >
             alpine-sdk
-            cargo
-            build-base
-            gcc
           shell-name: alpine
 
       - run: adduser runner abuild
@@ -47,7 +44,7 @@ jobs:
       - name: Build ${{ matrix.pkg }}
         env:
           PACKAGER: ${{ secrets.PACKAGER }}
-          PACKAGER_PRIVKEY: ~/.aports/key.rsa
+          PACKAGER_PRIVKEY: ~/.abuild/key.rsa
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
