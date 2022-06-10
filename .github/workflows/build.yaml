@@ -25,12 +25,11 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           branch: edge
-          shell-name: alpine-${{ matrix.arch }}.sh
           packages: >
             alpine-sdk
 
       - run: adduser runner abuild
-        shell: alpine-${{ matrix.arch }}.sh --root {0}
+        shell: alpine.sh --root {0}
 
       - name: Build ${{ matrix.pkg }}
         env:
@@ -39,7 +38,7 @@ jobs:
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
-        shell: alpine-${{ matrix.arch }}.sh {0}
+        shell: alpine.sh {0}
 
       - uses: svenstaro/upload-release-action@v2
         name: Upload Packages for ${{ matrix.pkg }}
