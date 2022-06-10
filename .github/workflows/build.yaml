@@ -1,7 +1,6 @@
 name: Build Packages
-on:
-  - push
-  - pull_request
+on: 
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,6 +13,7 @@ jobs:
          # - aarch64
         pkg:
           - static-web-server
+          - qemu-openrc
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
