@@ -26,7 +26,8 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           branch: edge
-          packages: base-dev alpine-sdk
+          packages: >
+            alpine-sdk
 
 
       - name: Build ${matrix.pkg}
