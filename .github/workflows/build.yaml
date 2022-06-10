@@ -29,6 +29,8 @@ jobs:
           packages: >
             alpine-sdk
 
+      - run: adduser runner abuild
+        shell: alpine.sh --root {0}
 
       - name: Build ${{ matrix.pkg }}
         env:
