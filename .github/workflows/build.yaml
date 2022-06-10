@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build Packages for ${{ matrix.arch }}
+    name: Build ${{ matrix.pkg }} for ${{ matrix.arch }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
