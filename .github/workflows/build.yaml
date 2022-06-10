@@ -14,7 +14,7 @@ jobs:
           - aarch64
           - armv7
         pkg:
-          - ardguardhome
+          - static-web-server
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
@@ -26,21 +26,11 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           branch: edge
-          packages: base-dev
+          packages: base-dev alpine-sdk
 
-      - name: Get version
-        run: |
-          GIT_TAG=$(git describe --tags --match 'v*' 2>/dev/null || echo ${GITHUB_REF##*/})
-          echo "VERSION=${GIT_TAG#v}" >> $GITHUB_ENV
 
-      - name: Build plugin
+      - name: Build ${matrix.pkg}
         run: |
-          cd ${PKG}
-          abuild
+          cd pkgs/${matrix.pkg}
+          abuild -r
         shell: alpine.sh {0}
-
-      - name: Upload pkg to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: build/*.tar.xz
-          if-no-files-found: error
