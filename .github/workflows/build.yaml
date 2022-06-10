@@ -12,7 +12,6 @@ jobs:
         arch:
           - x86_64
           - aarch64
-          - armv7
         pkg:
           - static-web-server
     steps:
@@ -40,3 +39,11 @@ jobs:
           cd pkgs/${{ matrix.pkg }}
           abuild -r
         shell: alpine.sh {0}
+
+      - uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          tag: edge
+          file: '/home/runner/packages/pkgs/${{ matrix.arch }}/*'
+          file_glob: true
+          overwrite: true
