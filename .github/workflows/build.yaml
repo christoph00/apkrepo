@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build on Alpine ${{ matrix.arch }}
+    name: Build Packages for ${{ matrix.arch }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,11 +25,12 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           branch: edge
+          shell-name: alpine-${{ matrix.arch }}.sh
           packages: >
             alpine-sdk
 
       - run: adduser runner abuild
-        shell: alpine.sh --root {0}
+        shell: alpine-${{ matrix.arch }}.sh --root {0}
 
       - name: Build ${{ matrix.pkg }}
         env:
@@ -38,9 +39,10 @@ jobs:
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
-        shell: alpine.sh {0}
+        shell: alpine-${{ matrix.arch }}.sh {0}
 
       - uses: svenstaro/upload-release-action@v2
+        name: Upload Packages for ${{ matrix.pkg }}
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
           tag: edge
