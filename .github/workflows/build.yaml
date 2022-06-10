@@ -35,7 +35,7 @@ jobs:
       - run: adduser runner abuild
         shell: alpine --root {0}
 
-      - run: mkdir -p ~/.abuild echo -en ${{ secrets.PACKAGER_PRIVKEY }} > ~/.abuild/key.rsa
+      - run: mkdir -p ~/.abuild && echo -en ${{ secrets.PACKAGER_PRIVKEY }} > ~/.abuild/key.rsa
         shell: alpine {0}
 
 
