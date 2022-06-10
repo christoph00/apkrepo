@@ -11,7 +11,7 @@ jobs:
       matrix:
         arch:
           - x86_64
-          - aarch64
+         # - aarch64
         pkg:
           - static-web-server
     steps:
@@ -30,13 +30,13 @@ jobs:
             cargo
             build-base
             gcc
-          shell-name: ${{ matrix.arch }}
+          shell-name: alpine
 
       - run: adduser runner abuild
-        shell: ${{ matrix.arch }} --root {0}
+        shell: alpine --root {0}
 
       - run: echo -en ${{ secrets.PACKAGER_PRIVKEY }} > ~/.aports/key.rsa
-        shell: ${{ matrix.arch }} {0}
+        shell: alpine {0}
 
 
       - name: Build ${{ matrix.pkg }}
@@ -46,7 +46,7 @@ jobs:
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
-        shell: ${{ matrix.arch }} {0}
+        shell: alpine {0}
 
       - uses: svenstaro/upload-release-action@v2
         name: Upload Packages for ${{ matrix.pkg }}
