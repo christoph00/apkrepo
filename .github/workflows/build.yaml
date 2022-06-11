@@ -20,8 +20,6 @@ jobs:
         with:
           fetch-depth: 0  # fetch all history
 
-      - run: mkdir -p repo
-
       - name: Install Alpine Linux Edge for ${{ matrix.arch }}
         uses: jirutka/setup-alpine@v1
         with:
@@ -37,6 +35,7 @@ jobs:
       - name: Build Key
         run: |
           echo "$PRIVKEY" > "/home/runner/key.rsa"
+          mkdir -p repo
         env:
           PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
         shell: alpine {0}
@@ -46,7 +45,7 @@ jobs:
         env:
           PACKAGER: ${{ secrets.PACKAGER }}
           PACKAGER_PRIVKEY: /home/runner/key.rsa
-          REPODEST: "repo"
+          REPODEST: "/home/runner/work/repo"
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
