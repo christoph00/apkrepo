@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0  # fetch all history
 
-      - run: mkdir -p /repo
+      - run: mkdir -p repo
 
       - name: Install Alpine Linux Edge for ${{ matrix.arch }}
         uses: jirutka/setup-alpine@v1
@@ -30,7 +30,7 @@ jobs:
           packages: >
             alpine-sdk
           shell-name: alpine
-          volumes: /repo:/home/runner/packages
+          volumes: repo:/home/runner/packages
 
       - run: adduser runner abuild
         shell: alpine --root {0}
