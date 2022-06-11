@@ -34,7 +34,7 @@ jobs:
 
       - name: Build Key
         run: |
-          echo $PRIVKEY > /home/runner/key.rsa
+          echo "$PRIVKEY" > "/home/runner/key.rsa"
         env:
           PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
         shell: alpine {0}
