@@ -56,6 +56,6 @@ jobs:
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
           tag: edge
-          file: 'repo/pkgs/${{ matrix.arch }}/*'
+          file: 'apkrepo/apkrepo/pkgs/${{ matrix.arch }}/*'
           file_glob: true
           overwrite: true
