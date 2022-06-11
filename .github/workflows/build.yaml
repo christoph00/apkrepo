@@ -20,6 +20,8 @@ jobs:
         with:
           fetch-depth: 0  # fetch all history
 
+      - run: mkdir -p /repo
+
       - name: Install Alpine Linux Edge for ${{ matrix.arch }}
         uses: jirutka/setup-alpine@v1
         with:
