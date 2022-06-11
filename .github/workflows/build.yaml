@@ -46,7 +46,7 @@ jobs:
           PACKAGER_PRIVKEY: /home/runner/key.rsa
         run: |
           cd pkgs/${{ matrix.pkg }}
-          abuild -r
+          abuild -r -P ./repo
         shell: alpine {0}
 
       - uses: svenstaro/upload-release-action@v2
@@ -54,6 +54,6 @@ jobs:
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
           tag: edge
-          file: '/home/runner/packages/pkgs/${{ matrix.arch }}/*'
+          file: 'repo/pkgs/${{ matrix.arch }}/*'
           file_glob: true
           overwrite: true
