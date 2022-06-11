@@ -35,6 +35,7 @@ jobs:
       - name: Build Key
         run: |
           echo "$PRIVKEY" > "/home/runner/key.rsa"
+          mkdir -p repo
         env:
           PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
         shell: alpine {0}
@@ -46,7 +47,7 @@ jobs:
           PACKAGER_PRIVKEY: /home/runner/key.rsa
         run: |
           cd pkgs/${{ matrix.pkg }}
-          abuild -r -P ./repo
+          abuild -r -P repo
         shell: alpine {0}
 
       - uses: svenstaro/upload-release-action@v2
