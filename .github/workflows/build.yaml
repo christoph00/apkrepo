@@ -12,7 +12,7 @@ jobs:
           - x86_64
          # - aarch64
         pkg:
-          - static-web-server
+          #- static-web-server
           - qemu-openrc
     steps:
       - name: Checkout repository
@@ -34,17 +34,16 @@ jobs:
 
       - name: Build Key
         run: |
-          mkdir -p ~/.abuild
-          echo $PRIVKEY >> ~/.abuild/key.rsa
+          echo $PRIVKEY > /home/runner/key.rsa
         env:
-          PRIVKEY : ${{secrets.PACKAGER_PRIVKEY}}
+          PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
         shell: alpine {0}
 
 
       - name: Build ${{ matrix.pkg }}
         env:
           PACKAGER: ${{ secrets.PACKAGER }}
-          PACKAGER_PRIVKEY: ~/.abuild/key.rsa
+          PACKAGER_PRIVKEY: /home/runner/key.rsa
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
