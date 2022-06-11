@@ -51,6 +51,11 @@ jobs:
           abuild -r
         shell: alpine {0}
 
+      - run: |
+          ls
+          tree
+          pwd
+
       - uses: svenstaro/upload-release-action@v2
         name: Upload Packages for ${{ matrix.pkg }}
         with:
