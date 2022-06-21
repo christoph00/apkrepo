@@ -54,10 +54,10 @@ jobs:
         shell: alpine {0}
 
       - uses: svenstaro/upload-release-action@v2
-        name: Upload Packages for ${{ matrix.pkg }}
+        name: Upload ${{ matrix.pkg }} for ${{ matrix.pkg }}
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
-          tag: edge
+          tag: edge-${{ matrix.arch }}
           file: 'pkgs/${{ matrix.arch }}/*'
           file_glob: true
           overwrite: true
