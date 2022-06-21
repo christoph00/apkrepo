@@ -47,7 +47,7 @@ jobs:
         env:
           PACKAGER: ${{ secrets.PACKAGER }}
           PACKAGER_PRIVKEY: /home/runner/key.rsa
-          REPODEST: "/home/runner/work/repo"
+          REPODEST: "/home/runner/work/apkrepo/apkrepo"
         run: |
           cd pkgs/${{ matrix.pkg }}
           abuild -r
