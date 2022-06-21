@@ -53,22 +53,11 @@ jobs:
           abuild -r
         shell: alpine {0}
 
-      - run: |
-          ls
-          tree
-          pwd
-          
-      - run: |
-          ls
-          tree
-          pwd
-        shell: alpine {0}
-
       - uses: svenstaro/upload-release-action@v2
         name: Upload Packages for ${{ matrix.pkg }}
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
           tag: edge
-          file: 'repo/pkgs/${{ matrix.arch }}/*'
+          file: 'pkgs/${{ matrix.arch }}/*'
           file_glob: true
           overwrite: true
