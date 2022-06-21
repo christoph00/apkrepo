@@ -53,12 +53,17 @@ jobs:
           cd pkgs/${{ matrix.pkg }}
           abuild -r
         shell: alpine {0}
-
-      - uses: svenstaro/upload-release-action@v2
-        name: Upload ${{ matrix.pkg }} for ${{ matrix.arch }}
+        
+      - uses: actions/upload-artifact@v2
         with:
-          repo_token: ${{secrets.GITHUB_TOKEN}}
-          tag: edge-${{ matrix.arch }}
-          file: 'pkgs/${{ matrix.arch }}/*'
-          file_glob: true
-          overwrite: true
+          name: pkgs-${{ matrix.arch }}
+          path: 'pkgs/${{ matrix.arch }}/*.apk'
+
+      #- uses: svenstaro/upload-release-action@v2
+      #  name: Upload ${{ matrix.pkg }} for ${{ matrix.arch }}
+      #  with:
+      #    repo_token: ${{secrets.GITHUB_TOKEN}}
+      #    tag: edge-${{ matrix.arch }}
+      #    file: 'pkgs/${{ matrix.arch }}/*'
+      #    file_glob: true
+      #    overwrite: true
