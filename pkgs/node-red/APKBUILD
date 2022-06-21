@@ -7,9 +7,11 @@ arch="aarch64 x86_64 !riscv64" # blocked by nodejs
 license="Apache-2.0"
 depends="nodejs"
 makedepends="npm"
-source="https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz"
+source="https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz
+	$pkgname.initd"
 options="!check"
 builddir="$srcdir/package"
+install="$pkgname.pre-install"
 
 unpack() {
 	# skipping unpacking, installing archive directly
@@ -23,4 +25,5 @@ package() {
 }
 sha512sums="
 0c0c78bfdfd6d8c1016ffb4734ef786e68de10b74083b0956653c95fe5011f546c997074abfdd9616d598b9e4d54c54dff4b0104ed60f9d23f2f4356086f2cf4  node-red-2.2.2.tgz
+4ec0c06054b66854547a84a27683b5c0ef6b192ca493e1128d349379c5db74ba8c13093ac8c98a9da4e1df3f1b4e5efa037969ccd8df70cfbf15fc974993638d  node-red.initd
 "

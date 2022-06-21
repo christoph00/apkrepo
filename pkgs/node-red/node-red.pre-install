@@ -1,0 +1,5 @@
+#!/bin/sh
+
+adduser -S -D -h /var/lib/node-red -s /sbin/nologin node-red 2>/dev/null
+
+exit 0

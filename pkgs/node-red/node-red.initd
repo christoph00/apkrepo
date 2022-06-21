@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+supervisor=supervise-daemon
+
+name="Node-Red"
+
+command=/usr/bin/node-red
+command_args="--settings /etc/node-red.js"
+command_user=node-red
+
+depend() {
+	need net
+	after firewall
+}
