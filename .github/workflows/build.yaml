@@ -58,6 +58,11 @@ jobs:
         with:
           name: ${{ matrix.pkg }}-${{ matrix.arch }}
           path: 'pkgs/${{ matrix.arch }}/*.apk'
+          
+      - uses: actions/download-artifact@v3
+
+      - name: Display structure of downloaded files
+        run: ls -R
 
       #- uses: svenstaro/upload-release-action@v2
       #  name: Upload ${{ matrix.pkg }} for ${{ matrix.arch }}
