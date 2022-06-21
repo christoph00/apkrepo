@@ -28,6 +28,7 @@ jobs:
           branch: edge
           packages: >
             alpine-sdk
+            tree
           shell-name: alpine
 
       - run: adduser runner abuild
