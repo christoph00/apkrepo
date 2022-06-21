@@ -58,17 +58,11 @@ jobs:
         with:
           name: ${{ matrix.pkg }}-${{ matrix.arch }}
           path: 'pkgs/${{ matrix.arch }}/*.apk'
-          
+    
+  apkindex:
+    name: Generate APKINDEX
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/download-artifact@v3
-
       - name: Display structure of downloaded files
         run: ls -R
-
-      #- uses: svenstaro/upload-release-action@v2
-      #  name: Upload ${{ matrix.pkg }} for ${{ matrix.arch }}
-      #  with:
-      #    repo_token: ${{secrets.GITHUB_TOKEN}}
-      #    tag: edge-${{ matrix.arch }}
-      #    file: 'pkgs/${{ matrix.arch }}/*'
-      #    file_glob: true
-      #    overwrite: true
