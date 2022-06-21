@@ -10,10 +10,10 @@ jobs:
       matrix:
         arch:
           - x86_64
-         # - aarch64
+          - aarch64
         pkg:
-          #- static-web-server
-          #- qemu-openrc
+          - static-web-server
+          - qemu-openrc
           - node-red
     steps:
       - name: Checkout repository
