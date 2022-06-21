@@ -1,0 +1,23 @@
+pkgname=zigbee2mqtt
+pkgver=2.25.2
+pkgrel=0
+pkgdesc="Allows you to use your Zigbee devices without the vendor's bridge or gateway."
+url="https://nodered.org"
+arch="aarch64 x86_64 !riscv64" # blocked by nodejs
+license="GPL-3.0"
+depends="nodejs"
+makedepends="npm"
+source="https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz"
+options="!check"
+builddir="$srcdir/package"
+
+unpack() {
+	# skipping unpacking, installing archive directly
+	verify
+}
+
+package() {
+	npm install -g --user root --production --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+	find "$pkgdir/usr/lib/node_modules/root" -delete
+	chown -R root "$pkgdir"
+}
