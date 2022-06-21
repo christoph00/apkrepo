@@ -77,6 +77,8 @@ jobs:
         run: |
           mkdir -p repo/pkgs/x86_64
           mkdir -p repo/pkgs/aarch64
+          find *-aarch64/*.apk | xargs cp -t repo/pkgs/aarch64/
+          find *-x86_64/*.apk | xargs cp -t repo/pkgs/x86_64/
       - name: APK index
         run: |
           tree
@@ -88,3 +90,19 @@ jobs:
         env:
           PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
         shell: alpine {0}
+      - uses: svenstaro/upload-release-action@v2
+        name: Upload Repo for x86_64
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          tag: edge-x86_64
+          file: 'repo/pkgs/x86_64/*'
+          file_glob: true
+          overwrite: true
+      - uses: svenstaro/upload-release-action@v2
+        name: Upload Repo for aarch64
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          tag: edge-aarch64
+          file: 'repo/pkgs/aarch64/*'
+          file_glob: true
+          overwrite: true
