@@ -12,9 +12,10 @@ jobs:
           - x86_64
           - aarch64
         pkg:
-          - static-web-server
+          #- static-web-server
           - qemu-openrc
           - node-red
+          - zigbee2mqtt
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
