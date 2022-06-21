@@ -1,0 +1,26 @@
+pkgname=node-red
+pkgver=2.2.2
+pkgrel=0
+pkgdesc="Low-code programming for event-driven applications"
+url="https://nodered.org"
+arch="aarch64 x86_64 !riscv64" # blocked by nodejs
+license="Apache-2.0"
+depends="nodejs"
+makedepends="npm"
+source="https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz"
+options="!check"
+builddir="$srcdir/package"
+
+unpack() {
+	# skipping unpacking, installing archive directly
+	verify
+}
+
+package() {
+	npm install -g --user root --production --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+	find "$pkgdir/usr/lib/node_modules/root" -delete
+	chown -R root "$pkgdir"
+}
+sha512sums="
+0c0c78bfdfd6d8c1016ffb4734ef786e68de10b74083b0956653c95fe5011f546c997074abfdd9616d598b9e4d54c54dff4b0104ed60f9d23f2f4356086f2cf4  node-red-2.2.2.tgz
+"
