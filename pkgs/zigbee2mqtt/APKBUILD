@@ -1,5 +1,5 @@
 pkgname=zigbee2mqtt
-pkgver=2.25.2
+pkgver=1.25.2
 pkgrel=0
 pkgdesc="Allows you to use your Zigbee devices without the vendor's bridge or gateway."
 url="https://nodered.org"
@@ -21,3 +21,6 @@ package() {
 	find "$pkgdir/usr/lib/node_modules/root" -delete
 	chown -R root "$pkgdir"
 }
+sha512sums="
+2963bfda2009128297db394c8fa39c4ff2028077bd57fd07309621759d02e4bb803991b3029f7d391842ee4683382ad470e83b6ae67eb22f7e95bed6439053f5  zigbee2mqtt-1.25.2.tgz
+"
