@@ -64,6 +64,28 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Install Alpine Linux Edge for ${{ matrix.arch }}
+        uses: jirutka/setup-alpine@v1
+        with:
+          arch: ${{ matrix.arch }}
+          branch: edge
+          packages: >
+            alpine-sdk
+            tree
+          shell-name: alpine
       - uses: actions/download-artifact@v3
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: copy apks in repo dir
+        run: |
+          mkdir -p repo/pkgs/x86_64
+          mkdir -p repo/pkgs/aarch64
+      - name: APK index
+        run: |
+          tree
+          cd repo/pkgs/x86_64
+          apk index
+          cd ..
+          cd aarch64
+          apk index
+        env:
+          PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
+        shell: alpine {0}
