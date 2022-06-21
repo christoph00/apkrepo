@@ -83,10 +83,10 @@ jobs:
         run: |
           tree
           cd repo/pkgs/x86_64
-          apk index
+          apk index -o APKINDEX.unsigned.tar.gz *.apk
           cd ..
           cd aarch64
-          apk index
+          apk index -o APKINDEX.unsigned.tar.gz *.apk
         env:
           PRIVKEY : ${{ secrets.PACKAGER_PRIVKEY }}
         shell: alpine {0}
