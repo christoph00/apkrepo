@@ -64,10 +64,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Install Alpine Linux Edge for ${{ matrix.arch }}
+      - name: Install Alpine Linux Edge
         uses: jirutka/setup-alpine@v1
         with:
-          arch: ${{ matrix.arch }}
           branch: edge
           packages: >
             alpine-sdk
