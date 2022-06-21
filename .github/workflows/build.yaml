@@ -56,7 +56,7 @@ jobs:
         
       - uses: actions/upload-artifact@v2
         with:
-          name: pkgs-${{ matrix.arch }}
+          name: ${{ matrix.pkg }}-${{ matrix.arch }}
           path: 'pkgs/${{ matrix.arch }}/*.apk'
 
       #- uses: svenstaro/upload-release-action@v2
